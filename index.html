@@ -27,7 +27,7 @@
       const containerEl = document.querySelector("#container");
       const filledEl = document.querySelector("#sliderFilled");
       const valueEl = document.querySelector("#value");
-      const maxWidth = sliderEl.getBoundingClientRect().width;
+      //   const maxWidth =  sliderEl.getBoundingClientRect().width;
       let startX;
       let newX;
       ballEl.addEventListener("mousedown", (e) => {
@@ -41,14 +41,14 @@
           ballEl.style.left = 0 + "px";
           filledEl.style.width = 0 + "px";
           valueEl.innerText = 0;
-        } else if (e.clientX - startX > maxWidth) {
-          ballEl.style.left = maxWidth - 16 + "px";
-          filledEl.style.width = maxWidth - 16 + "px";
+        } else if (e.clientX - startX > sliderEl.getBoundingClientRect().width) {
+          ballEl.style.left = sliderEl.getBoundingClientRect().width - 16 + "px";
+          filledEl.style.width = sliderEl.getBoundingClientRect().width - 16 + "px";
           valueEl.innerText = 100;
         } else {
           ballEl.style.left = e.clientX - startX + "px";
           filledEl.style.width = e.clientX - startX + "px";
-          valueEl.innerText = Math.round(((e.clientX - startX) / maxWidth) * 100);
+          valueEl.innerText = Math.round(((e.clientX - startX) / sliderEl.getBoundingClientRect().width) * 100);
         }
       };
       containerEl.addEventListener("mouseup", (e) => {
