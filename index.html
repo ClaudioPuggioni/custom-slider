@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Custom Range Slider</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="card">
+        <div id="header">Custom Slider</div>
+        <div id="slider">
+          <div id="sliderFilled"></div>
+          <div id="sliderBall" draggable="true"></div>
+        </div>
+        <div id="valueDiv">
+          <div id="valueLabel">Value:&nbsp;</div>
+          <div id="value">0</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const ballEl = document.querySelector("#sliderBall");
+      const cardEl = document.querySelector("#card");
+      const containerEl = document.querySelector("#container");
+      const filledEl = document.querySelector("#sliderFilled");
+      const valueEl = document.querySelector("#value");
+      const maxWidth = cardEl.getBoundingClientRect().width;
+      let startX;
+      let newX;
+      ballEl.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        if (!startX) startX = e.clientX;
+        containerEl.addEventListener("mousemove", mouseMove);
+      });
+      let mouseMove = (e) => {
+        e.preventDefault();
+        if (e.clientX - startX < 0) {
+          ballEl.style.left = 0 + "px";
+          filledEl.style.width = 0 + "px";
+          valueEl.innerText = 0;
+        } else if (e.clientX - startX > maxWidth) {
+          ballEl.style.left = maxWidth - 16 + "px";
+          filledEl.style.width = maxWidth + "px";
+          valueEl.innerText = 100;
+        } else {
+          ballEl.style.left = e.clientX - startX + "px";
+          filledEl.style.width = e.clientX - startX + "px";
+          valueEl.innerText = Math.round(((e.clientX - startX) / maxWidth) * 100);
+        }
+      };
+      containerEl.addEventListener("mouseup", (e) => {
+        e.preventDefault();
+        containerEl.removeEventListener("mousemove", mouseMove);
+      });
+    </script>
+  </body>
+</html>
