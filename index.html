@@ -23,11 +23,11 @@
     </div>
     <script>
       const ballEl = document.querySelector("#sliderBall");
-      const cardEl = document.querySelector("#card");
+      const sliderEl = document.querySelector("#slider");
       const containerEl = document.querySelector("#container");
       const filledEl = document.querySelector("#sliderFilled");
       const valueEl = document.querySelector("#value");
-      const maxWidth = cardEl.getBoundingClientRect().width;
+      const maxWidth = sliderEl.getBoundingClientRect().width;
       let startX;
       let newX;
       ballEl.addEventListener("mousedown", (e) => {
@@ -42,9 +42,8 @@
           filledEl.style.width = 0 + "px";
           valueEl.innerText = 0;
         } else if (e.clientX - startX > maxWidth) {
-          console.log(maxWidth);
-          ballEl.style.left = maxWidth + "px";
-          filledEl.style.width = maxWidth + "px";
+          ballEl.style.left = maxWidth - 16 + "px";
+          filledEl.style.width = maxWidth - 16 + "px";
           valueEl.innerText = 100;
         } else {
           ballEl.style.left = e.clientX - startX + "px";
